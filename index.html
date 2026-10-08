@@ -12,13 +12,13 @@
     <!--<div class="bg"></div>
     <div class="overlay"></div>
 -->
-    <div class="content">
+    <!-- <div class="content">
         <h1>動画サンプル</h1>
         <p>時間別</p>
 
 
     </div>
-    <div class="content">
+  <div class="content">
         <h1>動画サンプル</h1>
         <p>30~90</p>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/IPNxvak7dAc?si=e7rGKJKPILeLZ_gT&start=30&end=90"
@@ -44,6 +44,56 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
+    -->
+    <div class="content">
+
+<h1>動画サンプル</h1>
+<h2>YouTube 秒数指定切り替え</h2>
+
+<!-- YouTubeプレイヤーを置く場所 -->
+<div id="player"></div>
+<br>
+<!-- ボタン -->
+<button onclick="playRange(10, 20)">10秒〜20秒を再生</button>
+<button onclick="playRange(30, 45)">30秒〜45秒を再生</button>
+<button onclick="playRange(60, 90)">60秒〜90秒を再生</button>
+</div>
+<!-- YouTube IFrame API 読み込み -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+    let player;
+
+    // API読み込み後に呼ばれる
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '360',
+            width: '640',
+            videoId: 'IPNxvak7dAc', // ★好きな動画IDに変更
+            playerVars: {
+                rel: 0,
+                modestbranding: 1
+            }
+        });
+    }
+
+    // 指定した秒数で再生する関数
+    function playRange(start, end) {
+        player.seekTo(start);   // 開始位置へ移動
+        player.playVideo();     // 再生開始
+
+        // 終了秒数で停止するタイマー
+        const duration = (end - start) * 1000;
+        setTimeout(() => {
+            player.pauseVideo();
+        }, duration);
+    }
+</script>
+
+
+
+
+
 
 </body>
 
